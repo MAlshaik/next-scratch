@@ -5,10 +5,17 @@ import { getUserById } from '@/server/db/queries/user'
 import { populateGoogleUser } from '@/server/actions/auth'
 
 export async function GET(request: Request) {
+  console.log(`start of callback route`);
+
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get('next') ?? '/'
+
+  console.log(`origin: ${origin}`)
+  console.log(`searchParams: ${searchParams}`)
+  console.log(`code: ${code}`)
+  console.log(`next: ${next}`)
 
   if (code) {
     const cookieStore = cookies()
@@ -30,6 +37,7 @@ export async function GET(request: Request) {
       }
     )
     const { error } = await supabase.auth.exchangeCodeForSession(code)
+
     if (!error) {
       const { data: {user} } = await supabase.auth.getUser()
 
@@ -58,7 +66,7 @@ export async function GET(request: Request) {
           return NextResponse.redirect(`${origin}/auth/auth-code-error`)
         }
       }
-
+      console.log(`redirecting to ${origin}${next}`)
       return NextResponse.redirect(`${origin}${next}`)
     }
   }

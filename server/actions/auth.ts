@@ -89,6 +89,8 @@ export async function handleSignInWithGoogle(
 
   const redirectUrl = getURL('/auth/callback');
 
+  console.log(`redirectUrl: ${redirectUrl}`)
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
@@ -99,6 +101,8 @@ export async function handleSignInWithGoogle(
   if (error) {
     redirect('/login?message=' + error.message);
   }
+
+  console.log(`Redirecting to ${data.url}`)
 
   redirect(data.url)
 }
