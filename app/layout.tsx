@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/nav/NavBar";
+
+import {ThemeProvider as NextThemesProvider} from "next-themes";
+import { Toaster } from "react-hot-toast";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`bg-background ${inter.className}`}>{children}</body>
+    <html lang="en" >
+      <body className={`bg-background ${inter.className}`}>
+        <NextThemesProvider attribute="class" defaultTheme="system">
+        <NavBar />
+        <Toaster />
+        {children}
+        </NextThemesProvider>
+      </body>
     </html>
   );
 }
