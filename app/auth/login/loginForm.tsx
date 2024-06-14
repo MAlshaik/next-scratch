@@ -25,6 +25,7 @@ import { toast } from "react-hot-toast";
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
 
     const router = useRouter();
 
@@ -32,7 +33,8 @@ export default function LoginForm() {
         const res = await login(email, password);
 
         if (res) {
-            toast.error('error', {
+            setMessage(res);
+            toast.error(res, {
                 duration: 4000, 
                 position: 'bottom-right', 
                 style: {
@@ -57,9 +59,10 @@ export default function LoginForm() {
     }
 
     return (
-        <Card className="min-w-[400px] p-4">
+        <Card className="bg-background min-w-[400px] p-4">
             <CardHeader className="flex flex-col gap-3">
                 <div className="flex flex-col">Login</div>
+                {message && <p className="text-destructive">{message}</p>}
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
                 <Input 
@@ -84,10 +87,10 @@ export default function LoginForm() {
                     Login
                 </Button>
                 <div className="inline-flex items-center justify-center w-full">
-                  <hr className="w-full h-px my-8 bg-[#303030] border-0 " />
-                  <span className="absolute px-3 font-medium bg-black text-[#454545] -translate-x-1/2  left-1/2 ">or</span>
+                  <hr className="w-full h-px my-8 bg-secondary border-0 " />
+                  <span className="absolute px-3 font-medium bg-background text-foreground -translate-x-1/2  left-1/2 ">or</span>
                 </div> 
-                <Button onClick={() => handleSignInWithGoogle()} className="w-full flex gap-2">
+                <Button  onClick={() => handleSignInWithGoogle()} className="w-full flex gap-2">
                     <Google />
                     Login with Google
                 </Button>
