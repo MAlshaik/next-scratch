@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
     <div className="min-h-screen w-full sphere ">
-      <div className="pt-24 mx-auto w-[75rem] max-w-[98%]">
+      <div className="pt-24 mx-auto w-[80rem] md:px-20 max-w-[98%]">
         <Hero /> 
         <MindMap />
       </div>

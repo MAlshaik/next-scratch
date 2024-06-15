@@ -24,6 +24,7 @@ export function MindMap() {
     { id: '12', from: '1', to: '2', color: "#444" },
     { id: '13', from: '3', to: '4', color: "#444" }
   ])
+  const [dragged, setDragged] = useState<boolean>(false)
 
   useEffect(() => {
     const updatedNodes = myNodes.map(node => ({
@@ -38,7 +39,7 @@ export function MindMap() {
 
   const mouseEventCallbacks: MouseEventCallbacks = {
     onHover: (element: Node | Relationship | undefined, hitTargets: HitTargets, evt: MouseEvent) => {
-  if (element && element.hasOwnProperty('id')) {
+    if (element && element.hasOwnProperty('id') && myNodes.some(node => node.id === element.id)) {
     if (hitTargets.relationship) {
       console.log("relationships")
       return;
@@ -65,8 +66,10 @@ export function MindMap() {
       color: "#444" 
     }));
 
-    setMyNodes(updatedNodes);
-    setRelationships(updatedRelationships);
+    if (!dragged) {
+      setMyNodes(updatedNodes);
+      setRelationships(updatedRelationships);
+    }
   } else {
     // Reset color when not hovering over any element
     const updatedNodes = myNodes.map(node => ({
@@ -79,14 +82,17 @@ export function MindMap() {
       color: "#444"
     }));
 
-    setMyNodes(updatedNodes);
-    setRelationships(updatedRelationships);
+    if (!dragged) {
+      setMyNodes(updatedNodes);
+      setRelationships(updatedRelationships);
+    }
   }
 },
     onCanvasClick: (evt: MouseEvent) => console.log('onCanvasClick', evt),
     onCanvasDoubleClick: (evt: MouseEvent) => console.log('onCanvasDoubleClick', evt),
     onCanvasRightClick: (evt: MouseEvent) => console.log('onCanvasRightClick', evt),
-    onDrag: (nodes: Node[]) => console.log('onDrag', nodes),
+    onDrag: (nodes: Node[]) => setDragged(true),
+    onDragEnd: (nodes: Node[]) => setDragged(false),
     onPan: (evt: MouseEvent) => console.log('onPan', evt),
     onZoom: (zoomLevel: number) => console.log('onZoom', zoomLevel)
   }
