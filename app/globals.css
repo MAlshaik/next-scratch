@@ -124,6 +124,9 @@
       @apply bg-background text-foreground;
     }
     h1 {
-        @apply text-5xl md:text-6xl font-semibold text-foreground ;
+      @apply text-4xl md:text-7xl font-semibold text-foreground ;
+    }
+    p {
+      @apply lg:text-lg text-sm text-muted-foreground;
     }
     }

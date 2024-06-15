@@ -19,6 +19,7 @@ const buttonVariants = cva(
         nav: "hover:bg-hover rounded-full",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        text: "text-primary",
       },
       size: {
         default: "h-9 px-4 py-[0.1rem]",
