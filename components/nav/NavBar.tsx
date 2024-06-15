@@ -113,7 +113,7 @@ function NavBar() {
       </div>
       <div
         ref={gradientRef}
-        className="absolute bottom-0 h-0.5 bg-gradient-to-r from-background via-foreground to-background transition-all duration-300"
+        className="absolute bottom-0 h-0.5 bg-gradient-to-r from-transparent via-foreground to-transparent transition-all duration-300"
         style={{ width: '0px', left: '0px' }}
       ></div>
     </div>
