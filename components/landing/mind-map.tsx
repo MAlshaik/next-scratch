@@ -97,7 +97,7 @@ export function MindMap() {
 
 return (
     <div className="flex flex-col py-48 gap-8">
-      <h1>Learning through seeing</h1> 
+      <h1>Learning through seeing.</h1> 
       <p> <span className="text-foreground font-bold">See the big picture in your courses.</span>
          <br /> We take your study materials and add those concepts to a shared mind map.
       </p>

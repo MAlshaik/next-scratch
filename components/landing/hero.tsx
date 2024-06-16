@@ -4,7 +4,7 @@ import { CarrotDown } from "@/components/icons/carrot-down";
 export function Hero(){
     return (
         <div className="flex flex-col py-56 md:py-36 lg:py-52 gap-8">
-         <h1>Never take a note again</h1>
+         <h1>Never take a note again.</h1>
          <p>Gain access to a shared pool of notes for any of your courses. 
          <br /> Build on top of a communal understanding of any topic. 
          <br /> <span className="font-bold text-foreground"> Don&apos;t struggle alone. </span></p>

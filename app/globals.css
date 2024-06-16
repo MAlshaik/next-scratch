@@ -126,6 +126,13 @@
     h1 {
       @apply text-4xl md:text-7xl font-semibold text-foreground ;
     }
+    h2 {
+      @apply text-4xl md:text-5xl font-semibold text-foreground ;
+    }
+    h3 {
+      @apply text-4xl font-semibold text-foreground ;
+    }
+
     p {
       @apply lg:text-lg text-sm text-muted-foreground;
     }
