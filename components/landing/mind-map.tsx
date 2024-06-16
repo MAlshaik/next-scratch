@@ -5,25 +5,19 @@ import type { MouseEventCallbacks } from '@neo4j-nvl/react'
 import React, { useState, useEffect } from 'react'
 import { useTheme } from "next-themes";
 
+import { getData } from "./data"
+
 const InteractiveNvlWrapper = dynamic(() => import('@neo4j-nvl/react').then(mod => mod.InteractiveNvlWrapper), {
   ssr: false,
 });
 
 export function MindMap() {
   const { theme, setTheme } = useTheme()
-  const [myNodes, setMyNodes] = useState([
-    { id: '0', size: 20, color: theme === "light" ? "#141414" : "#DDD" },
-    { id: '1', size: 50, color: "#141414" },
-    { id: '2', size: 30, color: "#141414" },
-    { id: '3', size: 40, color: "#141414" },
-    { id: '4', size: 20, color: "#141414" }
-  ])
-  const [relationships, setRelationships] = useState([
-    { id: '10', from: '0', to: '1', color: "#444" },
-    { id: '11', from: '1', to: '3', color: "#444" },
-    { id: '12', from: '1', to: '2', color: "#444" },
-    { id: '13', from: '3', to: '4', color: "#444" }
-  ])
+  const { nodes, relations } = getData(theme);
+
+  const [myNodes, setMyNodes] = useState(nodes)
+  const [relationships, setRelationships] = useState(relations)
+
   const [dragged, setDragged] = useState<boolean>(false)
 
   useEffect(() => {
@@ -39,33 +33,39 @@ export function MindMap() {
 
   const mouseEventCallbacks: MouseEventCallbacks = {
     onHover: (element: Node | Relationship | undefined, hitTargets: HitTargets, evt: MouseEvent) => {
-    if (element && element.hasOwnProperty('id') && myNodes.some(node => node.id === element.id)) {
+  if (element && element.hasOwnProperty('id') && myNodes.some(node => node.id === element.id)) {
     if (hitTargets.relationship) {
       console.log("relationships")
       return;
     }
-
     const connectedNodeIds = relationships
       .filter(rel => rel.from === element.id || rel.to === element.id)
-      .map(rel => rel.from === element.id ? rel.to : rel.from)
-      .concat(element.id);
-
+      .flatMap(rel => [rel.from, rel.to])
+      .filter(id => id !== element.id);
+    const connectedRelationshipIds = relationships
+      .filter(rel => (rel.from === element.id && connectedNodeIds.includes(rel.to)) ||
+                     (rel.to === element.id && connectedNodeIds.includes(rel.from)))
+      .map(rel => rel.id);
     const updatedNodes = myNodes.map(node => ({
       ...node,
-      color: connectedNodeIds.includes(node.id)
+      color: connectedNodeIds.includes(node.id) || node.id === element.id
         ? theme === "light"
           ? "#141414"
-          : "#DDD"
+          : "#DDDDDD"
         : theme === "light"
-          ? "#BBB"
-          : "#222"
+          ? "#BBBBBB"
+          : "#222222"
     }));
-
     const updatedRelationships = relationships.map(rel => ({
       ...rel,
-      color: "#444" 
+      color: connectedRelationshipIds.includes(rel.id)
+        ? theme === "light"
+          ? "#141414"
+          : "#DDDDDD"
+        : theme === "light"
+          ? "#EEEEEE"
+          : "#222222"
     }));
-
     if (!dragged) {
       setMyNodes(updatedNodes);
       setRelationships(updatedRelationships);
@@ -74,14 +74,12 @@ export function MindMap() {
     // Reset color when not hovering over any element
     const updatedNodes = myNodes.map(node => ({
       ...node,
-      color: theme === "light" ? "#141414" : "#DDD"
+      color: theme === "light" ? "#141414" : "#DDDDDD"
     }));
-
     const updatedRelationships = relationships.map(rel => ({
       ...rel,
-      color: "#444"
+      color: theme === "light" ? "#BBBBBB" : "#222222"
     }));
-
     if (!dragged) {
       setMyNodes(updatedNodes);
       setRelationships(updatedRelationships);
