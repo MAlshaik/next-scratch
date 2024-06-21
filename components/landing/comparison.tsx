@@ -1,7 +1,7 @@
 
 export function Comparison(){
     return(
-        <div className="flex flex-col gap-12 w-full">
+        <div className="flex flex-col gap-12 w-full py-48">
             <h1>A second brain.</h1>
             <p>Notello has access to your <span className="font-bold">actual course materials.</span>
             <br /> That means when you ask it a question,<span className="font-bold">you know where the answer comes from.</span> </p>
