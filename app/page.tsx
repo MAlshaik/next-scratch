@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Hero } from '@/components/landing/hero';
 import { MindMap } from '@/components/landing/mind-map';
 import { Comparison } from '@/components/landing/comparison';
-import { Features } from '@/components/landing/features';
+import { Features } from '@/components/landing/features/features';
 import { WhyUs } from '@/components/landing/whyus';
 import { FAQ } from '@/components/landing/faq';
 import { Footer } from '@/components/landing/footer';
@@ -124,7 +124,6 @@ function handleScroll() {
             <div ref={mindMapRef} id="visualize"><MindMap /></div>
             <div ref={comparisonRef} id="automate"><Comparison /></div>
             <div ref={featuresRef} id="features"><Features /></div>
-            <WhyUs />
             <div ref={faqRef} id="FAQ">
               <FAQ />
             </div>

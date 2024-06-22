@@ -132,7 +132,9 @@
     h3 {
       @apply text-4xl font-semibold text-foreground ;
     }
-
+    h4 {
+      @apply text-3xl font-semibold text-foreground ;
+    }
     p {
       @apply lg:text-lg text-sm text-muted-foreground;
     }
