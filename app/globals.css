@@ -120,6 +120,14 @@
     * {
       @apply border-border;
     }
+
+    
+    .nav-blur{
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* Safari 9+ */
+    }
+
+
     body {
       @apply bg-background text-foreground;
     }
