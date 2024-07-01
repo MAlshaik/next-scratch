@@ -50,7 +50,7 @@ function NavBar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-10 bg-opacity-0 bg-transparent start-0 border-b border-border backdrop-filter backdrop-filter-[10px]">
+    <div className="fixed top-0 left-0 w-full z-10 bg-opacity-0 bg-transparent start-0 border-b border-border backdrop-filter backdrop-blur-[10px]">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto md:px-20 p-4">
         <div className="flex items-center h-full">
           <Link
